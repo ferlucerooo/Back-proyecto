@@ -76,7 +76,7 @@ class ProductManager {
         if(product){
             return product;
         } else {
-            console.log(`Error: Producto ${id} no encontrado`);
+            console.log("Error: Producto no encontrado");
         }
     }
 }
@@ -93,10 +93,14 @@ class Product {
 }
 
 
-const productManager = new ProductManager('productos.json');
+
 
 //test
-productManager.addProduct({
+const test = async () => {
+    const productManager = new ProductManager('productos.json');
+// agregamos productos 
+
+await productManager.addProduct({
     title: "Producto 1",
     description: "Descripcion del producto 1",
     price: 100,
@@ -104,7 +108,7 @@ productManager.addProduct({
     code: "P001",
     stock: 10
 });
-productManager.addProduct({
+await productManager.addProduct({
     title: "Producto 2",
     description: "Descripcion del producto 2",
     price: 150,
@@ -112,7 +116,7 @@ productManager.addProduct({
     code: "P002",
     stock: 20
 });
-productManager.addProduct({
+await productManager.addProduct({
     title: "Producto 3",
     description: "Descripcion del producto 3",
     price: 200,
@@ -120,29 +124,36 @@ productManager.addProduct({
     code: "P003",
     stock: 30
 });
-
 console.log("Todos los productos:", productManager.getProducts());
 
 const foundProduct = productManager.getProductById(1);
-console.log("Producto encontrado 1:", foundProduct);
+console.log("Producto encontrado:", foundProduct);
 
 const foundProduct2 = productManager.getProductById(2);
-console.log("Producto encontrado 2:", foundProduct2);
+console.log("Producto encontrado:", foundProduct2);
 
 const foundProduct3 = productManager.getProductById(3);
-console.log("Producto encontrado 3:", foundProduct3);
+console.log("Producto encontrado:", foundProduct3);
 
 const notFoundProduct = productManager.getProductById(4);
-console.log("Producto 4 no encontrado ", notFoundProduct);
+console.log("Producto no encontrado", notFoundProduct);
 
 // actualiza el producto
-productManager.updateProduct(1, {price: 300, stock: 300});
+await productManager.updateProduct(1, {price: 300, stock: 300});
 console.log("Producto 1 actualizado:",productManager.getProductById(1));
 
 // elimina 1 producto
 
-productManager.deleteProduct(2);
+await productManager.deleteProduct(2);
 console.log("Producto 2 eliminado");
 
 console.log("Todos los productos estan actualizados", productManager.getProducts());
+};
+
+//ejecutamos los test 
+test();
+
+
+
+
 
