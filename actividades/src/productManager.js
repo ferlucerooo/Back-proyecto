@@ -85,14 +85,22 @@ class ProductManager {
         }
     }
     getNextProductId(products) {
+        // Verifica si no hay productos o si el array de productos está vacío
         if (!products || products.length === 0) {
+            // Si no hay productos, devuelve 1 como el próximo ID
             return 1;
         }
-
+        // Si hay productos en el array, encuentra el ID más grande
         const maxId = products.reduce((max, product) => {
-            return product.id > max ? product.id : max;
+            // Compara cada ID de producto con el valor máximo actual
+            // y devuelve el nuevo valor máximo
+            if (product.id > max) {
+                return product.id;
+            } else {
+                return max;
+            }
         }, 0);
-
+        // Devuelve el próximo ID disponible, que es el máximo encontrado más 1
         return maxId + 1;
     }
 };
