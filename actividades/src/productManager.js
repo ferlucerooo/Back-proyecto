@@ -1,4 +1,5 @@
-const fs = require ('fs');
+import fs from 'fs';
+
 
 class ProductManager {
 
@@ -20,6 +21,8 @@ class ProductManager {
 
     async saveFile(data){
         try{
+            console.log("Saving file:", this.path);
+            console.log("Data to save:", data);
             await fs.promises.writeFile(
                 this.path, JSON.stringify(data, null ,"\t")
             );
@@ -79,7 +82,10 @@ class ProductManager {
             console.log("Error: Producto no encontrado");
         }
     }
-}
+};
+
+export  {ProductManager};
+
 
 class Product {
     constructor (title, description , price, thumbnail, code, stock) {
@@ -91,8 +97,6 @@ class Product {
         this.stock = stock;
     }
 }
-
-
 
 
 //test
@@ -124,6 +128,38 @@ await productManager.addProduct({
     code: "P003",
     stock: 30
 });
+await productManager.addProduct({
+    title: "Producto 4",
+    description: "Descripcion del producto 4",
+    price: 400,
+    thumbnail: "imagen4.jpg",
+    code: "P004",
+    stock: 40
+});
+await productManager.addProduct({
+    title: "Producto 5",
+    description: "Descripcion del producto 5",
+    price: 500,
+    thumbnail: "imagen5.jpg",
+    code: "P005",
+    stock: 50
+});
+await productManager.addProduct({
+    title: "Producto 6",
+    description: "Descripcion del producto 6",
+    price: 600,
+    thumbnail: "imagen6.jpg",
+    code: "P006",
+    stock: 60
+});
+await productManager.addProduct({
+    title: "Producto 7",
+    description: "Descripcion del producto 7",
+    price: 700,
+    thumbnail: "imagen7.jpg",
+    code: "P007",
+    stock: 70
+});
 console.log("Todos los productos:", productManager.getProducts());
 
 const foundProduct = productManager.getProductById(1);
@@ -135,23 +171,22 @@ console.log("Producto encontrado:", foundProduct2);
 const foundProduct3 = productManager.getProductById(3);
 console.log("Producto encontrado:", foundProduct3);
 
-const notFoundProduct = productManager.getProductById(4);
+const notFoundProduct = productManager.getProductById(8);
 console.log("Producto no encontrado", notFoundProduct);
 
 // actualiza el producto
-await productManager.updateProduct(1, {price: 300, stock: 300});
-console.log("Producto 1 actualizado:",productManager.getProductById(1));
+/* await productManager.updateProduct(1, {price: 300, stock: 300});
+console.log("Producto 1 actualizado:",productManager.getProductById(1)); */
 
 // elimina 1 producto
 
-await productManager.deleteProduct(2);
-console.log("Producto 2 eliminado");
+/* await productManager.deleteProduct(2);
+console.log("Producto 2 eliminado"); */
 
 console.log("Todos los productos estan actualizados", productManager.getProducts());
 };
-
 //ejecutamos los test 
-test();
+export {test};
 
 
 
