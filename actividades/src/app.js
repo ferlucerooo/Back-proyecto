@@ -21,7 +21,7 @@ app.get("/", async (req, res)=> {
 app.get("/products",  async (req, res)=> {
 
     const { limit } = req.query;
-    test ();
+    
 
 	try{	
 		console.log("Getting products...");
@@ -37,6 +37,7 @@ app.get("/products",  async (req, res)=> {
 			res.json({ products });
 
 	} catch (error){
+        console.error("Unhandled error:", error);
 		res.json({error: "Internal server error"})
 	}
     
@@ -47,7 +48,7 @@ app.get("/products",  async (req, res)=> {
 app.get("/products/:pid",  (req, res)=> {
 
     const { pid } = req.params;
-    test ();
+    
     
     try {
         const product = productManager.getProductById(Number(pid));
@@ -58,6 +59,7 @@ app.get("/products/:pid",  (req, res)=> {
             res.json({ error: "Product not found" });
         }
     } catch (error) {
+        console.error("Error in /products route:", error);
         res.json({ error: "Internal Server Error" });
     }
 

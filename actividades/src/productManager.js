@@ -6,6 +6,7 @@ class ProductManager {
     constructor (path) {
         this.nextProductId = 1;
         this.path = path;
+        console.log("ProductManager constructor called with path:", this.path);
         if (fs.existsSync(path)){
             try {
                 let dataProduct = fs.readFileSync(path, "utf-8");
@@ -13,6 +14,7 @@ class ProductManager {
                 this.nextProductId = this.getNextProductId(this.products);
             } catch (error){
                 this.products = [];
+                console.error("Error reading products file:", error);
             }
         } else {
             this.products = [];
@@ -81,6 +83,17 @@ class ProductManager {
         } else {
             console.log("Error: Producto no encontrado");
         }
+    }
+    getNextProductId(products) {
+        if (!products || products.length === 0) {
+            return 1;
+        }
+
+        const maxId = products.reduce((max, product) => {
+            return product.id > max ? product.id : max;
+        }, 0);
+
+        return maxId + 1;
     }
 };
 
@@ -187,6 +200,7 @@ console.log("Todos los productos estan actualizados", productManager.getProducts
 };
 //ejecutamos los test 
 export {test};
+
 
 
 
