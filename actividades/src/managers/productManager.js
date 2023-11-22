@@ -53,6 +53,7 @@ class ProductManager {
         //se agrega al array de products
         this.products.push(newProduct);
         // Guarda los cambios en el arcgivo
+        
         await this.saveFile(this.products);
     }
 
@@ -118,6 +119,13 @@ class Product {
         this.stock = stock;
     }
 }
+
+
+
+
+
+
+
 
 
 //test
@@ -207,7 +215,8 @@ console.log("Producto 2 eliminado"); */
 console.log("Todos los productos estan actualizados", productManager.getProducts());
 };
 //ejecutamos los test 
-export {test};
+
+//test ();
 
 
 
