@@ -14,7 +14,11 @@ app.use("/api/carts", cartRouter);
 
 
 
-app.listen(PORT, ()=> console.log(`Server listening on port ${PORT}`));
+app.listen(PORT, () => {
+    console.log(`Server listening on port ${PORT}`);
+    console.log(`Products router path: /api/products`);
+    console.log(`Carts router path: /api/carts`);
+});
 
 
 

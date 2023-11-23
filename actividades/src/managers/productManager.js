@@ -15,8 +15,10 @@ class ProductManager {
             } catch (error){
                 this.products = [];
                 console.error("Error reading products file:", error);
+                console.error("Products path:", path);
             }
         } else {
+            console.error("Products file not found at path:", path);
             this.products = [];
         }
     }
@@ -118,9 +120,7 @@ class Product {
         this.code = code;
         this.stock = stock;
     }
-}
-
-
+};
 
 
 

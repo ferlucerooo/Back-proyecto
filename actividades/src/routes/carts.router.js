@@ -7,15 +7,15 @@ const router = Router();
 
 
 
-const cartManager = new CartManager("data/productos.json", 'data/carrito.json');
+const cartManager = new CartManager("data/productos.json", "data/carrito.json");
 
-
-router.post("/api/carts", (req,res)=>{
+//
+router.post("/", (req,res)=>{
     const newCart = cartManager.createCart();
     res.json(newCart);
 });
 
-router.get("/api/carts/:cid", (req, res)=>{
+router.get("/:cid", (req, res)=>{
     const {cid}=  req.params;
     try{
         const cart = cartManager.getCart(Number(cid));
@@ -31,7 +31,7 @@ router.get("/api/carts/:cid", (req, res)=>{
     } 
 });
 
-router.post("/api/carts/:cid/product/:pid", (req, res)=> {
+router.post("/:cid/product/:pid", (req, res)=> {
     const { cid, pid} = req.params;
     const {quantity} = req.body;
 try{

@@ -3,9 +3,10 @@ import { ProductManager } from "../managers/productManager.js";
 
 const router = Router();
 
-const productManager = new ProductManager("productos.json");
+const productManager = new ProductManager("data/productos.json");
 
-router.get("/api/products", async (req, res) => {
+router.get("/", async (req, res) => {
+  console.log("GET /api/products");
   const { limit } = req.query;
 
   try {
@@ -25,11 +26,11 @@ router.get("/api/products", async (req, res) => {
   }
 });
 
-router.get("/api/products/:pid", (req, res) => {
+router.get("/:pid", (req, res) => {
   const { pid } = req.params;
 
   try {
-    const product = productManager.getProducts(Number(pid));
+    const product = productManager.getProductById(Number(pid));
 
     if (product) {
       res.json({ product });
@@ -43,7 +44,7 @@ router.get("/api/products/:pid", (req, res) => {
 });
 
 // agregar productos
-router.post("/api/products", async (req, res) => {
+router.post("/", async (req, res) => {
   const product = req.body;
   try {
     const result = await productManager.addProduct(product);
@@ -56,7 +57,7 @@ router.post("/api/products", async (req, res) => {
 
 //actualizacion del producto
 
-router.put("/api/products/:pid", async (req, res) => {
+router.put("/:pid", async (req, res) => {
   const productmodify = req.body;
   const productId = Number(req.params.pid);
   try {
@@ -73,13 +74,13 @@ router.put("/api/products/:pid", async (req, res) => {
 
 // eliminar productos
 
-router.delete("/api/products/:pid", async (req, res) => {
+router.delete("/:pid", async (req, res) => {
   const productId = Number(req.params.pid);
 
   try {
     const result = await productManager.deleteProduct(productId);
     res.json({
-      messsage: `Product wigt ID ${productId} deleted successfully`,
+      message: `Product wigt ID ${productId} deleted successfully`,
       result,
     });
   } catch (error) {

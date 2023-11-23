@@ -1,21 +1,30 @@
 import fs from "fs";
+import path from "path";
 
 class CartManager{
     constructor(productsPath, cartsPath){
         this.productsPath = productsPath;
         this.cartsPath = cartsPath;
-        this.carts = this.loadCarts();
-    }
-    loadCarts(){
-        try{
-            const cartsData = fs.readFileSync(this.cartsPath, "utf-8");
-            return JSON.parse(cartsData);
-        } catch (error){
-            console.error("Error reading carts file:", error);
-            return [];
+    
+        if (fs.existsSync(productsPath) && fs.existsSync(cartsPath)) {
+            try {
+                let datacart = fs.readFileSync(cartsPath, "utf-8");
+                let dataProduct = fs.readFileSync(productsPath, "utf-8");
+                this.carts = JSON.parse(datacart);
+                this.products = JSON.parse(dataProduct);
+                console.log("Products loaded:", this.products);
+            } catch (error) {
+                this.products = [];
+                console.error("Error reading products file:", error);
+                console.error("Products path:", productsPath);
+                console.error("Carts path:", cartsPath);
+            }
+        } else {
+            this.products = [];
+            this.carts = [];
         }
     }
-
+    
     async saveCarts(){
         try{
             await fs.promises.writeFile(
