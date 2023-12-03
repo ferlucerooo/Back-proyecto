@@ -1,4 +1,4 @@
-import fs from 'fs';
+import fs, { stat } from 'fs';
 
 
 class ProductManager {
@@ -38,9 +38,9 @@ class ProductManager {
     }
 
     async addProduct(product) {
-        const {title, description, price, thumbnail, code, stock} = product;
+        const {title, description, price, status, category, thumbnails, code, stock} = product;
         //busca que todos los campos sean obligatorios
-        if(!title || !description || !price || !thumbnail || !code || !stock){
+        if(!title || !description || !price || !status || !category || !code || !stock){
             console.log("Error: Todos los campos son obligatorios");
             return;
         }
@@ -49,7 +49,7 @@ class ProductManager {
             console.log("Error: El codigo ya existe");
             return;
         }
-        const newProduct = new Product(title, description, price, thumbnail, code, stock);
+        const newProduct = new Product(title, description, price,status, category, thumbnails, code, stock);
         // Id autoincrementable
         newProduct.id = this.nextProductId++;
         //se agrega al array de products
@@ -112,11 +112,13 @@ export  {ProductManager};
 
 
 class Product {
-    constructor (title, description , price, thumbnail, code, stock) {
+    constructor (title, description , price, status, category, thumbnails, code, stock) {
         this.title = title;
         this.description = description;
         this.price = price;
-        this.thumbnail = thumbnail;
+        this.status= status;
+        this.category = category;
+        this.thumbnail = thumbnails;
         this.code = code;
         this.stock = stock;
     }
@@ -130,7 +132,7 @@ class Product {
 
 //test
 const test = async () => {
-    const productManager = new ProductManager('productos.json');
+    const productManager = new ProductManager('./src/data/productos.json');
 // agregamos productos 
 
 await productManager.addProduct({

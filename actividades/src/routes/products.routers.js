@@ -3,7 +3,7 @@ import { ProductManager } from "../managers/productManager.js";
 
 const router = Router();
 
-const productManager = new ProductManager("data/productos.json");
+const productManager = new ProductManager("./src/data/productos.json");
 
 router.get("/", async (req, res) => {
   console.log("GET /api/products");
@@ -19,7 +19,7 @@ router.get("/", async (req, res) => {
     }
 
     console.log("Sending response:", { products });
-    res.json({ products });
+    res.json(products);
   } catch (error) {
     console.error("Error", error);
     res.status(500).json({ error: "Internal server error" });
@@ -33,7 +33,7 @@ router.get("/:pid", (req, res) => {
     const product = productManager.getProductById(Number(pid));
 
     if (product) {
-      res.json({ product });
+      res.json( product );
     } else {
       res.status(404).json({ error: "Product not found" });
     }
