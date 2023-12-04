@@ -73,33 +73,6 @@ class CartManager {
  
      // Devolver el carrito actualizado
      return this.carts[cartIndex];
-
-
-
-    /* const cartIndex = this.carts.findIndex((e) => e.id === cartId);
-  
-    if (cartIndex === -1) {
-      console.log(`Cart with ID ${cartId} not found`);
-      return { error: "Nonexistent cart" };
-    }
-  
-    const cart = this.carts[cartIndex];
-  
-    console.log(`Cart before operation:`, cart);
-  
-    if (!cart.products.find((e) => e.product === productId)) {
-      console.log(`Adding product ${productId} to cart ${cartId}`);
-      cart.products.push({ product: productId, quantity: 1 });
-    } else {
-      console.log(`Incrementing quantity for product ${productId} in cart ${cartId}`);
-      const existingProduct = cart.products.find((e) => e.product === productId);
-      existingProduct.quantity += 1;
-    }
-  
-    this.carts[cartIndex] = cart;
-    await fs.promises.writeFile(this.path, JSON.stringify(this.carts));
-    console.log(`Cart after operation:`, cart);
-    return cart; */
   }
 }
 
